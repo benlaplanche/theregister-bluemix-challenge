@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 )
 
@@ -29,6 +30,8 @@ func main() {
 				if value == "#" {
 					return
 				}
+
+				value = cleanString(value)
 
 				num := stringToInt(value)
 				if num <= 15 {
@@ -78,4 +81,16 @@ func check(e error) bool {
 		return true
 	}
 	return false
+}
+
+func cleanString(value string) (result string) {
+
+	r := regexp.MustCompile(`\d+`)
+	matches := r.FindAllString(value, -1)
+
+	for _, value := range matches {
+		result += value
+	}
+
+	return
 }

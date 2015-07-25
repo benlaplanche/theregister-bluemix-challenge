@@ -86,6 +86,20 @@ var _ = Describe("Main", func() {
 				Eventually(session.Out).ShouldNot(gbytes.Say("20922789888000"))
 			})
 		})
+
+		Context("That has invalid input", func() {
+			It("Should strip the invalid characters and return correct results", func() {
+				input, _ := filepath.Abs("assets/invalid_input.txt")
+
+				command := exec.Command(pathToFactorialsBinary, input)
+				session, err := gexec.Start(command, GinkgoWriter, GinkgoWriter)
+
+				Expect(err).ShouldNot(HaveOccurred())
+				Eventually(session.Out).Should(gbytes.Say("1"))
+				Eventually(session.Out).Should(gbytes.Say("24"))
+				Eventually(session.Out).Should(gbytes.Say("6"))
+			})
+		})
 	})
 
 	Describe("Error scenarios - ", func() {
