@@ -73,6 +73,19 @@ var _ = Describe("Main", func() {
 				Eventually(session.Out).ShouldNot(gbytes.Say("120"))
 			})
 		})
+
+		Context("That has values greater than 15", func() {
+			It("Should ignore values greater than 15", func() {
+				input, _ := filepath.Abs("assets/sixteen_input.txt")
+
+				command := exec.Command(pathToFactorialsBinary, input)
+				session, err := gexec.Start(command, GinkgoWriter, GinkgoWriter)
+
+				Expect(err).ShouldNot(HaveOccurred())
+				Eventually(session.Out).Should(gbytes.Say("1307674368000"))
+				Eventually(session.Out).ShouldNot(gbytes.Say("20922789888000"))
+			})
+		})
 	})
 
 	Describe("Error scenarios - ", func() {

@@ -31,8 +31,9 @@ func main() {
 				}
 
 				num := stringToInt(value)
-
-				fmt.Println(factorial(num))
+				if num <= 15 {
+					fmt.Println(factorial(num))
+				}
 			}
 
 		} else if check(err) == true {
