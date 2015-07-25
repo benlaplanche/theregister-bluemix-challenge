@@ -9,31 +9,35 @@ import (
 
 func main() {
 
-	input := os.Args[1]
-	file, err := os.Open(input)
-
-	if check(err) == false {
-		// looks like its a file path input
-		defer file.Close()
-
-		reader := bufio.NewReader(file)
-		scanner := bufio.NewScanner(reader)
-
-		for scanner.Scan() {
-			// fmt.Println(scanner.Text())
-			i := stringToInt(scanner.Text())
-			fmt.Println(factorial(i))
-		}
-	} else if check(err) == true {
-		// lets see if its a number string input
-		intInput := stringToInt(input)
-
-		output := factorial(intInput)
-		fmt.Println(output)
-
-	} else if len(os.Args) == 1 {
-		// no input values
+	if len(os.Args) == 1 {
 		fmt.Println("Please provide either a file path or a number input")
+
+	} else {
+
+		input := os.Args[1]
+		file, err := os.Open(input)
+
+		if check(err) == false {
+			// looks like its a file path input
+			defer file.Close()
+
+			reader := bufio.NewReader(file)
+			scanner := bufio.NewScanner(reader)
+
+			for scanner.Scan() {
+				i := stringToInt(scanner.Text())
+				fmt.Println(factorial(i))
+			}
+
+		} else if check(err) == true {
+			// lets see if its a number string input
+			intInput := stringToInt(input)
+
+			output := factorial(intInput)
+			fmt.Println(output)
+
+		}
+
 	}
 
 }

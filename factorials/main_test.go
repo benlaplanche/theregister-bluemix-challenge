@@ -60,6 +60,18 @@ var _ = Describe("Main", func() {
 		})
 	})
 
+	Describe("Error scenarios - ", func() {
+		Context("No args provided", func() {
+			It("Provides an error message", func() {
+				command := exec.Command(pathToFactorialsBinary)
+				session, err := gexec.Start(command, GinkgoWriter, GinkgoWriter)
+
+				Expect(err).ShouldNot(HaveOccurred())
+				Eventually(session.Out).Should(gbytes.Say("Please provide either a file path or a number input"))
+			})
+		})
+	})
+
 	AfterSuite(func() {
 		gexec.CleanupBuildArtifacts()
 	})
