@@ -9,5 +9,6 @@ import (
 
 func TestFactorials(t *testing.T) {
 	RegisterFailHandler(Fail)
+
 	RunSpecs(t, "Factorials Suite")
 }
