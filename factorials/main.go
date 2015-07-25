@@ -25,8 +25,14 @@ func main() {
 			scanner := bufio.NewScanner(reader)
 
 			for scanner.Scan() {
-				i := stringToInt(scanner.Text())
-				fmt.Println(factorial(i))
+				value := scanner.Text()
+				if value == "#" {
+					return
+				}
+
+				num := stringToInt(value)
+
+				fmt.Println(factorial(num))
 			}
 
 		} else if check(err) == true {

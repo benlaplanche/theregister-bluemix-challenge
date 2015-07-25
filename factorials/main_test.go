@@ -58,6 +58,21 @@ var _ = Describe("Main", func() {
 				Eventually(session.Out).Should(gbytes.Say("6"))
 			})
 		})
+
+		Context("That has valid input with additional values after the seperator", func() {
+			It("Should only return values before seperator", func() {
+				input, _ := filepath.Abs("assets/additional_input.txt")
+
+				command := exec.Command(pathToFactorialsBinary, input)
+				session, err := gexec.Start(command, GinkgoWriter, GinkgoWriter)
+
+				Expect(err).ShouldNot(HaveOccurred())
+				Eventually(session.Out).Should(gbytes.Say("1"))
+				Eventually(session.Out).Should(gbytes.Say("24"))
+				Eventually(session.Out).Should(gbytes.Say("6"))
+				Eventually(session.Out).ShouldNot(gbytes.Say("120"))
+			})
+		})
 	})
 
 	Describe("Error scenarios - ", func() {
