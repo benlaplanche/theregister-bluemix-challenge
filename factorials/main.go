@@ -20,7 +20,9 @@ func main() {
 		scanner := bufio.NewScanner(reader)
 
 		for scanner.Scan() {
-			fmt.Println(scanner.Text())
+			// fmt.Println(scanner.Text())
+			i := stringToInt(scanner.Text())
+			fmt.Println(factorial(i))
 		}
 	} else if check(err) == true {
 		// lets see if its a number string input
